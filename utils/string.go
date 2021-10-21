@@ -3,8 +3,7 @@ package utils
 import (
 	"strings"
 )
-func GetNumber(s string, str strType) int {
-	strNeed := smap[str]
+func GetNumber(s string, strNeed string) int {
 	index := strings.Index(s, strNeed)
 	if index == -1 {
 		return -1

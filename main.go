@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"io/ioutil"
 
-	"github.com/pyoxiao/RankSearch/utils"
+	"RankSearch/utils"
 )
 type stu struct {
 	name 		string
@@ -31,8 +31,8 @@ func main() {
 	}()
 	body, _ := ioutil.ReadAll(r.Body)
 	str := string(body)
-	curStu.hduRank = utils.GetNumber(str, utils.rank)
-	curStu.hduSol = utils.GetNumber(str, utils.sol)
+	curStu.hduRank = utils.GetNumber(str, utils.StrRank)
+	curStu.hduSol = utils.GetNumber(str, utils.StrSol)
 	stus = append(stus, curStu)
 	
 }
