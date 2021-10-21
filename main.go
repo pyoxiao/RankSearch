@@ -1,22 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"io/ioutil"
-	"strings"
+
+	"github.com/pyoxiao/RankSearch/utils"
 )
 type stu struct {
-	name string
-	id string
-	hduRank int
-	wustRank int
+	name 		string
+	userName    string
+	hduRank 	int
+	hduSol 		int
+	wustRank 	int
 }
 
 func main() {
 	httpString := "http://acm.hdu.edu.cn/userstatus.php?user="
-	user := "pyoxiao"
-	curHttp := httpString + user
+	stus := make([]stu, 0)
+
+	var curStu stu 
+	username := "pyoxiao"
+	curStu.userName = username
+	curHttp := httpString + username
 	r, err := http.Get(curHttp)
 	if err != nil {
 		panic(err)
@@ -25,15 +30,9 @@ func main() {
 		_ = r.Body.Close()
 	}()
 	body, _ := ioutil.ReadAll(r.Body)
-	s := string(body)
-	strNeed := "<tr><td>Rank</td><td align=center>"
-	index := strings.Index(s, strNeed)
-	if index == -1 {
-		panic(-1)
-	} 
-	num := 0
-	for pos := index + len(strNeed); s[pos] >= '0' && s[pos] <= '9'; pos += 1 {
-		num = num * 10 + int(s[pos] - '0');
-	}
-	fmt.Println(num)
+	str := string(body)
+	curStu.hduRank = utils.GetNumber(str, utils.rank)
+	curStu.hduSol = utils.GetNumber(str, utils.sol)
+	stus = append(stus, curStu)
+	
 }
