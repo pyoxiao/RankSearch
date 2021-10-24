@@ -18,5 +18,5 @@ func(stus Stus) Swap (i, j int) {
 }
 
 func(stus Stus) Less (i, j int) bool {
-	return stus[j].HduRank < stus[i].HduRank
+	return stus[j].HduRank > stus[i].HduRank
 }

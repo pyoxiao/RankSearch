@@ -58,7 +58,9 @@ func main() {
 		str := string(body)
 		curStu.HduRank = utils.GetNumber(str, utils.StrRank)
 		curStu.HduSol = utils.GetNumber(str, utils.StrSol)
-		stus = append(stus, curStu)
+		if curStu.HduRank != -1 {
+			stus = append(stus, curStu)
+		}
 	}
 	sort.Sort(utils.Stus(stus))
 	result, err := os.Create("/root/pyo/result.txt")
@@ -67,14 +69,14 @@ func main() {
 		return
 	}
 	defer result.Close()
-	result.WriteString("姓 名 hdu账号名 HduRank HduSolve WustRank\n")
+	result.WriteString("姓 名 hdu账号名 HduSolve WustRank\n")
 	for i, stu := range stus {
 		result.WriteString(stu.Name) 
 		result.WriteString(" ")
 		result.WriteString(stu.UserName) 
 		result.WriteString(" ")
-		result.WriteString(strconv.Itoa(stu.HduRank)) 
-		result.WriteString(" ")
+		//result.WriteString(strconv.Itoa(stu.HduRank)) 
+		//result.WriteString(" ")
 		result.WriteString(strconv.Itoa(stu.HduSol)) 
 		result.WriteString(" ")
 		result.WriteString(strconv.Itoa(i + 1)) 
